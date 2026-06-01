@@ -26,19 +26,29 @@ function Navbar({ setPage }) {
     setShowCartDropdown(false);
   };
 
-  // دالة إرسال الطلب عبر الواتساب
-  const handleWhatsappCheckout = () => {
-    const phoneNumber = "31612345678"; // ضع رقم متجرك هنا
-    let message = `🛒 *Nieuwe Bestelling van Merode Markt*\n\n`;
-    cart.forEach((item) => {
-      message += `• ${item.name} (x${item.quantity}) - €${(item.price * item.quantity).toFixed(2)}\n`;
-    });
-    message += `\n💰 *Totaalbedrag:* €${totalPrice.toFixed(2)}\n\n`;
-    message += `Graag wil ik deze bestelling afronden. Alvast bedankt!`;
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me{phoneNumber}?text=${encodedMessage}`;
-    window.open(whatsappUrl, '_blank');
-  };
+ const handleWhatsappCheckout = () => {
+  // 🟢 ضع رقم هاتف متجرك الحقيقي هنا بدون أصفار في البداية وبدون علامة +
+  // الرقم يبدأ بـ 32 لدولة بلجيكا (سوق Turnhout)
+  const phoneNumber = "324XXXXXXXX"; 
+
+  // صياغة نص الرسالة بالهولندية
+  let message = `🛒 *Nieuwe Bestelling van Merode Markt*\n\n`;
+  cart.forEach((item) => {
+    message += `• ${item.name} (x${item.quantity}) - €${(item.price * item.quantity).toFixed(2)}\n`;
+  });
+  message += `\n💰 *Totaalbedrag:* €${totalPrice.toFixed(2)}\n\n`;
+  message += `Graag wil ik deze bestelling afronden. Alvast bedankt!`;
+
+  // ترميز نص الرسالة ليناسب الروابط
+  const encodedMessage = encodeURIComponent(message);
+  
+  // 🟢 الرابط الصحيح والدقيق (تأكد من وجود الشرطة المائلة وعلامة الدولار للمتغير)
+  const whatsappUrl = `https://wa.me{phoneNumber}?text=${encodedMessage}`;
+  
+  // فتح الواتساب في نافذة جديدة
+  window.open(whatsappUrl, '_blank');
+};
+
 
   return (
     <nav className="navbar">
