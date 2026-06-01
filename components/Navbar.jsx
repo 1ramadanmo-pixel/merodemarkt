@@ -14,22 +14,20 @@ function Navbar({ setPage }) {
     setShowCartDropdown(false);
   };
 
-  // دالة ذكية لفتح السلة وإغلاق قائمة الجوال تلقائياً
+  // دالة فتح السلة وإغلاق قائمة الجوال تلقائياً
   const toggleCart = () => {
     setShowCartDropdown(!showCartDropdown);
     setIsMenuOpen(false); 
   };
 
-  // دالة ذكية لفتح قائمة الجوال وإغلاق السلة تلقائياً
+  // دالة فتح قائمة الجوال وإغلاق السلة تلقائياً
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
     setShowCartDropdown(false);
   };
 
-  // 💬 دالة إرسال الطلب عبر الواتساب تلقائياً
+  // دالة إرسال الطلب عبر الواتساب تلقائياً للتوجيه المباشر دون حظر المتصفح
   const handleWhatsappCheckout = () => {
-    const phoneNumber = "32460212345"; 
-    // صياغة نص الرسالة بالهولندية وتجميع المنتجات تلقائياً
     let message = "🛒 *Nieuwe Bestelling van Merode Markt*\n\n";
     cart.forEach((item) => {
       message += "• " + item.name + " (x" + item.quantity + ") - €" + (item.price * item.quantity).toFixed(2) + "\n";
@@ -37,15 +35,11 @@ function Navbar({ setPage }) {
     message += "\n💰 *Totaalbedrag:* €" + totalPrice.toFixed(2) + "\n\n";
     message += "Graag wil ik deze bestelling afronden. Alvast bedankt!";
 
-    // ترميز النص ليناسب روابط الإنترنت
     const encodedMessage = encodeURIComponent(message);
-    
-    // 🟢 الرابط المباشر الصحيح والمنظم والمدمج برقم متجرك الفعلي في بلجيكا
     const whatsappUrl = "https://wa.me" + encodedMessage;
     
-    // فتح محادثة الواتساب فوراً في نافذة جديدة
+    // التوجيه المباشر المضمون للهواتف الذكية ومتصفحات الحواسيب
     window.location.href = whatsappUrl;
-
   };
 
   return (
@@ -75,7 +69,7 @@ function Navbar({ setPage }) {
             🛒 <span className="cart-badge">{totalItems}</span>
           </button>
 
-          {/* قائمة السلة المنسدلة الاحترافية */}
+          {/* قائمة السلة المنسدلة الاحترافية والكاملة */}
           {showCartDropdown && (
             <div className="cart-dropdown">
               <h3>Jouw Winkelwagen</h3>
@@ -84,33 +78,34 @@ function Navbar({ setPage }) {
                   Je winkelwagen is leeg.
                 </p>
               ) : (
-                        <div className="cart-items-list">
-          {cart.map((item) => (
-            <div key={item.id} className="cart-dropdown-item">
-              <span className="cart-item-name">{item.name} (x{item.quantity})</span>
-              <div className="cart-item-actions">
-                <button onClick={() => removeFromCart(item.id)}>-</button>
-                <button onClick={() => addToCart(item)}>+</button>
-              </div>
-              <span className="cart-item-price">€{(item.price * item.quantity).toFixed(2)}</span>
-            </div>
-          ))}
-        </div>
+                <>
+                  <div className="cart-items-list">
+                    {cart.map((item) => (
+                      <div key={item.id} className="cart-dropdown-item">
+                        <span className="cart-item-name">{item.name} (x{item.quantity})</span>
+                        <div className="cart-item-actions">
+                          <button onClick={() => removeFromCart(item.id)}>-</button>
+                          <button onClick={() => addToCart(item)}>+</button>
+                        </div>
+                        <span className="cart-item-price">€{(item.price * item.quantity).toFixed(2)}</span>
+                      </div>
+                    ))}
+                  </div>
 
-        <div className="cart-footer-sticky">
-          <div className="cart-total">
-            <strong>Totaal:</strong>
-            <strong>€{totalPrice.toFixed(2)}</strong>
-          </div>
-          <button 
-            className="checkout-btn" 
-            style={{ backgroundColor: '#25D366', color: 'white', fontWeight: 'bold' }} 
-            onClick={handleWhatsappCheckout}
-          >
-            Bestellen via WhatsApp 💬
-          </button>
-        </div>
-
+                  <div className="cart-footer-sticky">
+                    <div className="cart-total">
+                      <strong>Totaal:</strong>
+                      <strong>€{totalPrice.toFixed(2)}</strong>
+                    </div>
+                    <button 
+                      className="checkout-btn" 
+                      style={{ backgroundColor: '#25D366', color: 'white', fontWeight: 'bold' }} 
+                      onClick={handleWhatsappCheckout}
+                    >
+                      Bestellen via WhatsApp 💬
+                    </button>
+                  </div>
+                </>
               )}
             </div>
           )}
