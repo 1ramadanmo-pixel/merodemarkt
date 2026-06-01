@@ -45,6 +45,7 @@ function Navbar({ setPage }) {
         {/* روابط التنقل */}
         <div className="nav-links">
           <button onClick={() => setPage('home')}>Winkel</button>
+          <button onClick={() => setPage('about')}>Over Ons</button>
           <button onClick={() => setPage('contact')}>Contact</button>
         </div>
 
