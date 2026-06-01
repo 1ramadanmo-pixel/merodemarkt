@@ -43,7 +43,8 @@ function Navbar({ setPage }) {
     const whatsappUrl = "https://wa.me" + encodedMessage;
     
     // فتح محادثة الواتساب فوراً في نافذة جديدة
-    window.open(whatsappUrl, '_blank');
+    window.location.href = whatsappUrl;
+
   };
 
   return (
