@@ -76,7 +76,7 @@ body {
 
 .nav-links button {
   background: none;
-  border: 1px soled #fff;
+  border: var(--primary;
   font-size: 1rem;
   font-weight: 500;
   margin-right: 1.5rem;
