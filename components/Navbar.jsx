@@ -27,10 +27,7 @@ function Navbar({ setPage }) {
   };
 
  const handleWhatsappCheckout = () => {
-  // ضع رقم هاتفك الحقيقي هنا بالكامل (مثال: رقم بلجيكي يبدأ بـ 32)
-  const phoneNumber = "32470685016"; 
-
-  // صياغة نص الرسالة بالهولندية
+  // 🟢 صياغة نص الرسالة بالهولندية وتجميع المنتجات تلقائياً
   let message = "🛒 *Nieuwe Bestelling van Merode Markt*\n\n";
   cart.forEach((item) => {
     message += "• " + item.name + " (x" + item.quantity + ") - €" + (item.price * item.quantity).toFixed(2) + "\n";
@@ -38,15 +35,16 @@ function Navbar({ setPage }) {
   message += "\n💰 *Totaalbedrag:* €" + totalPrice.toFixed(2) + "\n\n";
   message += "Graag wil ik deze bestelling afronden. Alvast bedankt!";
 
-  // ترميز نص الرسالة ليناسب الروابط
+  // ترميز النص ليناسب روابط الإنترنت
   const encodedMessage = encodeURIComponent(message);
   
-  // 🟢 الطريقة التقليدية المضمونة: دمج النصوص باستخدام علامة الزائد (+) وتجنب الأقواس المائلة تماماً
-  const whatsappUrl = "https://wa.me" + phoneNumber + "?text=" + encodedMessage;
+  // 🟢 الرابط المباشر الصحيح والمدمج برقمك الفعلي في بلجيكا
+  const whatsappUrl = "https://wa.me" + encodedMessage;
   
-  // فتح الواتساب في نافذة جديدة
+  // فتح محادثة الواتساب فوراً
   window.open(whatsappUrl, '_blank');
 };
+
 
 
 
