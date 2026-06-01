@@ -1,0 +1,494 @@
+/* استيراد خط حديث وناعم وعصري */
+@import url('https://googleapis.com');
+
+:root {
+  --primary: #10b981;      /* اللون الأخضر المريح للعين للمتاجر الغذائية */
+  --primary-dark: #059669;
+  --bg-light: #f8fafc;
+  --text-dark: #0f172a;
+  --text-muted: #64748b;
+  --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+body {
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+}
+
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem 5%;
+}
+
+/* شريط التنقل Modern Navbar */
+.navbar {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  cursor: pointer;
+}
+/* تنسيق صورة الشعار داخل الـ Navbar */
+.navbar-logo-img {
+  height: 45px;          /* تحديد الارتفاع المناسب للشريط العلوى */
+  width: auto;           /* جعل العرض يتناسق تلقائياً لحماية أبعاد الصورة */
+  display: block;
+  object-fit: contain;   /* يضمن عدم تمدد أو تشوه أبعاد الصورة */
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+/* تأثير حركي خفيف عند تمرير الفأرة فوق الشعار */
+.navbar-logo-img:hover {
+  transform: scale(1.05);
+}
+
+
+.nav-links button {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-right: 1.5rem;
+  cursor: pointer;
+  color: var(--text-dark);
+  transition: color 0.2s;
+}
+
+.nav-links button:hover {
+  color: var(--primary);
+}
+
+.cart-icon-wrapper {
+  position: relative;
+}
+
+.cart-btn {
+  background: #f1f5f9;
+  border: none;
+  font-size: 1.2rem;
+  padding: 0.6rem 1rem;
+  border-radius: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.cart-badge {
+  background: var(--primary);
+  color: white;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 0.1rem 0.5rem;
+  border-radius: 50%;
+  margin-left: 0.5rem;
+}
+
+/* صندوق السلة الرئيسي محدد الارتفاع */
+.cart-dropdown {
+  position: absolute;
+  right: 0;
+  top: 120%;
+  width: 360px;
+  max-height: 500px; /* تحديد أقصى ارتفاع مسموح للسلة بالكامل */
+  background: white;
+  border-radius: 16px;
+  box-shadow: var(--card-shadow);
+  padding: 1.25rem;
+  border: 1px solid #edf2f7;
+  display: flex;
+  flex-direction: column; /* ترتيب العناصر عمودياً */
+  z-index: 999;
+}
+
+.cart-dropdown h3 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 0.5rem;
+}
+
+/* قائمة المنتجات مع تفعيل شريط التمرير الداخلي بنجاح */
+.cart-items-list {
+  flex: 1; /* تأخذ المساحة المتاحة فقط */
+  overflow-y: auto; /* تفعيل التمرير العمودي عند زيادة العناصر */
+  padding-right: 5px;
+  margin-bottom: 0.5rem;
+}
+
+.cart-dropdown-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #f1f5f9;
+  gap: 10px;
+}
+
+.cart-item-name {
+  font-size: 0.9rem;
+  flex: 2;
+}
+
+.cart-item-actions {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+}
+
+.cart-item-actions button {
+  background: #e2e8f0;
+  border: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cart-item-price {
+  font-size: 0.9rem;
+  font-weight: 600;
+  flex: 1;
+  text-align: right;
+}
+
+/* الجزء السفلي الثابت الذي يحتوي على الإجمالي وزر الواتساب */
+.cart-footer-sticky {
+  border-top: 2px solid #f1f5f9;
+  padding-top: 1rem;
+  background: white;
+  margin-top: auto; /* يضمن بقائه دائماً ملتصقاً بالأسفل */
+}
+
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+}
+
+.checkout-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  width: 100%;
+  padding: 0.85rem;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: transform 0.2s;
+}
+
+.checkout-btn:hover {
+  transform: scale(1.02);
+}
+
+/* تصميم شريط التمرير ليصبح نحيفاً ومتناسقاً */
+.cart-items-list::-webkit-scrollbar {
+  width: 6px;
+}
+.cart-items-list::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 10px;
+}
+
+
+/* التنسيق الأساسي المطور للبانر الترحيبي */
+.hero-section {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  background: linear-gradient(135deg, #e6f4ea 0%, #f4fbf7 100%);
+  border-radius: 24px;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* تباعد ثابت ونظيف بين الأسطر */
+}
+
+.hero-section h1 {
+  font-size: 2.6rem;
+  color: #064e3b;
+  font-weight: 800;
+  margin: 0;
+}
+
+.hero-section h2 {
+  font-size: 1.6rem;
+  color: var(--primary-dark);
+  font-weight: 600;
+  margin: 0;
+}
+
+.hero-section p {
+  font-size: 1rem;
+  color: var(--text-muted);
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* 📱 ضبط المقاسات تلقائياً لتصبح مثالية على شاشات الهواتف الصغيرة */
+@media (max-width: 480px) {
+  .hero-section {
+    padding: 2rem 1rem; /* تقليل الحواف الجانبية لترك مساحة أكبر */
+    border-radius: 16px;
+  }
+  .hero-section h1 {
+    font-size: 2rem; /* تصغير الخط قليلاً ليناسب عرض الهاتف في سطر واحد */
+  }
+  .hero-section h2 {
+    font-size: 1.3rem;
+  }
+  .hero-section p {
+    font-size: 0.9rem;
+  }
+}
+
+
+/* تنسيق يظهر القائمة كاملة ويلف العناصر تلقائياً لأسفل */
+.categories-filter {
+  display: flex;
+  justify-content: center; /* يجعل الأزرار متمركزة في منتصف الشاشة بشكل متناسق */
+  gap: 0.5rem;             /* مسافة مناسبة بين الأزرار */
+  margin-bottom: 2.5rem;
+  padding: 0.5rem;
+  
+  /* 🟢 الخصائص السحرية لإلغاء السكرول وعرض القائمة كاملة */
+  flex-wrap: wrap;         /* يسمح للأزرار بالنزول لسطر جديد عند انتهاء مساحة العرض */
+  overflow-x: visible;     /* إلغاء خاصية إخفاء العناصر أو تمريرها */
+  white-space: normal;     /* السماح للعناصر بأخذ مساحتها الطبيعية دون إجبارها على سطر واحد */
+
+  /* تحسين تجربة السحب على الهواتف الذكية بلمسة إصبع ناعمة */
+  -webkit-overflow-scrolling: touch; 
+}
+
+/* 🟢 إخفاء شريط التمرير الافتراضي المشوه ليبقى التصميم نظيفاً (UI/UX الاحترافي) */
+.categories-filter::-webkit-scrollbar {
+  display: none; /* إخفاء لمتصفحات كروم، سفاري، وإيدج */
+}
+.categories-filter {
+  -ms-overflow-style: none;  /* إخفاء لمتصفح إنترنت إكسبلورر */
+  scrollbar-width: none;     /* إخفاء لمتصفح فايرفوكس */
+}
+
+.filter-btn {
+  background: white;
+  border: 1px solid #e2e8f0;
+  padding: 0.6rem 1.2rem;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 600;      /* جعل الخط أعرض قليلاً ليظهر بشكل مودرن */
+  font-size: 0.9rem;
+  transition: all 0.2s;
+  display: inline-flex;  /* تفعيل الفليكس داخل الزر لضبط محاذاة الأيقونة والنص */
+  align-items: center;
+  gap: 6px;              /* ترك مسافة 6 بكسل بين الأيقونة والكلام */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02); /* ظل خفيف جداً للأزرار */
+}
+
+
+.filter-btn.active, .filter-btn:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+  
+}
+
+/* شبكة المنتجات الاحترافية */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 2rem;
+}
+
+.product-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.3s ease;
+  border: 1px solid #f1f5f9;
+}
+
+.product-card:hover {
+  transform: translateY(-10px);
+}
+
+.product-image img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.product-info {
+  padding: 1.25rem;
+}
+
+.product-category {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.product-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0.5rem 0 1rem 0;
+  height: 2.4rem;
+  overflow: hidden;
+}
+
+.product-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.product-price {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.add-to-cart-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.add-to-cart-btn:hover {
+  background: var(--primary-dark);
+}
+
+/* صفحة التواصل والخرائط */
+.contact-page {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.contact-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 24px;
+  box-shadow: var(--card-shadow);
+}
+
+.hours-list {
+  list-style: none;
+  margin-top: 1rem;
+}
+
+.hours-list li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.map-container {
+  min-height: 400px;
+}
+
+.footer {
+  text-align: center;
+  padding: 2rem;
+  background: white;
+  border-top: 1px solid #e2e8f0;
+  color: var(--text-muted);
+}
+
+/* التوافق الكامل مع الهواتف Responsive Design */
+@media (max-width: 768px) {
+  .contact-page {
+    grid-template-columns: 1fr;
+  }
+  .hero-section h1 {
+    font-size: 1.8rem;
+  }
+  .cart-dropdown {
+    position: fixed;
+    top: 70px;
+    left: 5%;
+    right: 5%;
+    width: 90%;
+  }
+}
+/* تنسيق صندوق البحث العصري */
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  padding: 0 1rem;
+}
+
+.search-input {
+  width: 100%;
+  max-width: 500px;         /* تحديد أقصى عرض مسموح للصندوق في الشاشات الكبيرة */
+  padding: 0.85rem 1.5rem;
+  font-size: 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 50px;       /* حواف دائرية مودرن بالكامل */
+  outline: none;
+  background-color: white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+  transition: all 0.3s ease;
+}
+
+/* حركة ناعمة وتغيير اللون الأخضر عند ضغط الزبون داخل صندوق البحث */
+.search-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.1);
+}
+
+/* تنسيق رسالة عدم وجود منتج */
+.no-products-msg {
+  grid-column: 1 / -1;       /* تجعل الرسالة تمتد على كامل شبكة العرض لتبدو متناسقة */
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  margin-top: 2rem;
+}
+
