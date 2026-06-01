@@ -5,44 +5,108 @@ import logoImg from '../assets/logo.png';
 function Navbar({ setPage }) {
   const { totalItems, cart, addToCart, removeFromCart, totalPrice } = useCart();
   const [showCartDropdown, setShowCartDropdown] = useState(false);
-  // 🟢 حالة جديدة للتحكم في فتح وإغلاق قائمة الجوال (همبرغر)
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // دالة التنقل بين الصفحات وإغلاق القوائم
   const handleNavClick = (page) => {
     setPage(page);
-    setIsMenuOpen(false); // إغلاق القائمة تلقائياً بعد الضغط على أي صفحة
+    setIsMenuOpen(false);
+    setShowCartDropdown(false);
   };
 
-  // ... (دالة handleWhatsappCheckout تبقى كما هي دون تغيير)
+  // دالة ذكية لفتح السلة وإغلاق قائمة الجوال تلقائياً
+  const toggleCart = () => {
+    setShowCartDropdown(!showCartDropdown);
+    setIsMenuOpen(false); 
+  };
+
+  // دالة ذكية لفتح قائمة الجوال وإغلاق السلة تلقائياً
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+    setShowCartDropdown(false);
+  };
+
+  // دالة إرسال الطلب عبر الواتساب
+  const handleWhatsappCheckout = () => {
+    const phoneNumber = "31612345678"; // ضع رقم متجرك هنا
+    let message = `🛒 *Nieuwe Bestelling van Merode Markt*\n\n`;
+    cart.forEach((item) => {
+      message += `• ${item.name} (x${item.quantity}) - €${(item.price * item.quantity).toFixed(2)}\n`;
+    });
+    message += `\n💰 *Totaalbedrag:* €${totalPrice.toFixed(2)}\n\n`;
+    message += `Graag wil ik deze bestelling afronden. Alvast bedankt!`;
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me{phoneNumber}?text=${encodedMessage}`;
+    window.open(whatsappUrl, '_blank');
+  };
 
   return (
     <nav className="navbar">
       <div className="nav-container">
         
-        {/* 🟢 زر الهمبرغر (يظهر على الجوال فقط) */}
-        <button className="menu-toggle-btn" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+        {/* زر الهمبرغر للجوال */}
+        <button className="menu-toggle-btn" onClick={toggleMenu}>
           {isMenuOpen ? '✖' : '☰'}
         </button>
 
-        {/* الشعار واللوجو */}
+        {/* شعار المتجر */}
         <div className="logo" onClick={() => handleNavClick('home')}>
           <img src={logoImg} alt="Merode Markt" className="navbar-logo-img" />
         </div>
 
-        {/* روابط التنقل (تتحول لقائمة منزلقة على الجوال عبر كلاس active) */}
+        {/* روابط الصفحات */}
         <div className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
           <button onClick={() => handleNavClick('home')}>Winkel</button>
           <button onClick={() => handleNavClick('about')}>Over Ons</button>
           <button onClick={() => handleNavClick('contact')}>Contact</button>
         </div>
 
-        {/* زر السلة التفاعلي */}
+        {/* زر وأيقونة السلة التفاعلية */}
         <div className="cart-icon-wrapper">
-          <button className="cart-btn" onClick={() => setShowCartDropdown(!showCartDropdown)}>
+          <button className="cart-btn" onClick={toggleCart}>
             🛒 <span className="cart-badge">{totalItems}</span>
           </button>
 
-          {/* ... (كود القائمة المنسدلة للسلة cart-dropdown يبقى كما هو بدون تغيير) */}
+          {/* قائمة السلة المنسدلة الاحترافية */}
+          {showCartDropdown && (
+            <div className="cart-dropdown">
+              <h3>Jouw Winkelwagen</h3>
+              {cart.length === 0 ? (
+                <p className="empty-msg" style={{ textAlign: 'center', color: '#64748b', padding: '1rem 0' }}>
+                  Je winkelwagen is leeg.
+                </p>
+              ) : (
+                <>
+                  <div className="cart-items-list">
+                    {cart.map((item) => (
+                      <div key={item.id} className="cart-dropdown-item">
+                        <span className="cart-item-name">{item.name} (x{item.quantity})</span>
+                        <div className="cart-item-actions">
+                          <button onClick={() => removeFromCart(item.id)}>-</button>
+                          <button onClick={() => addToCart(item)}>+</button>
+                        </div>
+                        <span className="cart-item-price">€{(item.price * item.quantity).toFixed(2)}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="cart-footer-sticky">
+                    <div className="cart-total">
+                      <strong>Totaal:</strong>
+                      <strong>€{totalPrice.toFixed(2)}</strong>
+                    </div>
+                    <button 
+                      className="checkout-btn" 
+                      style={{ backgroundColor: '#25D366', color: 'white', fontWeight: 'bold' }} 
+                      onClick={handleWhatsappCheckout}
+                    >
+                      Bestellen via WhatsApp 💬
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          )}
         </div>
 
       </div>
