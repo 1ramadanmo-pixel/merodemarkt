@@ -26,28 +26,25 @@ function Navbar({ setPage }) {
     setShowCartDropdown(false);
   };
 
- const handleWhatsappCheckout = () => {
-  // 🟢 صياغة نص الرسالة بالهولندية وتجميع المنتجات تلقائياً
-  let message = "🛒 *Nieuwe Bestelling van Merode Markt*\n\n";
-  cart.forEach((item) => {
-    message += "• " + item.name + " (x" + item.quantity + ") - €" + (item.price * item.quantity).toFixed(2) + "\n";
-  });
-  message += "\n💰 *Totaalbedrag:* €" + totalPrice.toFixed(2) + "\n\n";
-  message += "Graag wil ik deze bestelling afronden. Alvast bedankt!";
+  // 💬 دالة إرسال الطلب عبر الواتساب تلقائياً
+  const handleWhatsappCheckout = () => {
+    // صياغة نص الرسالة بالهولندية وتجميع المنتجات تلقائياً
+    let message = "🛒 *Nieuwe Bestelling van Merode Markt*\n\n";
+    cart.forEach((item) => {
+      message += "• " + item.name + " (x" + item.quantity + ") - €" + (item.price * item.quantity).toFixed(2) + "\n";
+    });
+    message += "\n💰 *Totaalbedrag:* €" + totalPrice.toFixed(2) + "\n\n";
+    message += "Graag wil ik deze bestelling afronden. Alvast bedankt!";
 
-  // ترميز النص ليناسب روابط الإنترنت
-  const encodedMessage = encodeURIComponent(message);
-  
-
-// 🟢 الرابط الصحيح والمدمج برقم متجرك الفعلي وبادئة الرسالة النصية
-const whatsappUrl = "https://wa.me" + encodedMessage;
-
-// فتح محادثة الواتساب فوراً
-window.open(whatsappUrl, '_blank');
-
-
-
-
+    // ترميز النص ليناسب روابط الإنترنت
+    const encodedMessage = encodeURIComponent(message);
+    
+    // 🟢 الرابط المباشر الصحيح والمنظم والمدمج برقم متجرك الفعلي في بلجيكا
+    const whatsappUrl = "https://wa.me" + encodedMessage;
+    
+    // فتح محادثة الواتساب فوراً في نافذة جديدة
+    window.open(whatsappUrl, '_blank');
+  };
 
   return (
     <nav className="navbar">
