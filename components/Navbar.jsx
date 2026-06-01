@@ -29,7 +29,7 @@ function Navbar({ setPage }) {
  const handleWhatsappCheckout = () => {
   // 🟢 ضع رقم هاتف متجرك الحقيقي هنا بدون أصفار في البداية وبدون علامة +
   // الرقم يبدأ بـ 32 لدولة بلجيكا (سوق Turnhout)
-  const phoneNumber = "324XXXXXXXX"; 
+  const phoneNumber = "32470685016"; 
 
   // صياغة نص الرسالة بالهولندية
   let message = `🛒 *Nieuwe Bestelling van Merode Markt*\n\n`;
