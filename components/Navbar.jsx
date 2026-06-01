@@ -28,6 +28,7 @@ function Navbar({ setPage }) {
 
   // 💬 دالة إرسال الطلب عبر الواتساب تلقائياً
   const handleWhatsappCheckout = () => {
+    const phoneNumber = "32460212345"; 
     // صياغة نص الرسالة بالهولندية وتجميع المنتجات تلقائياً
     let message = "🛒 *Nieuwe Bestelling van Merode Markt*\n\n";
     cart.forEach((item) => {
