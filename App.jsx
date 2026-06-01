@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Contact from './pages/Contact';
 import Privacy from './pages/Privacy'; // 🟢 1. استيراد صفحة الخصوصية الجديدة
+import About from './pages/About';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -19,6 +20,7 @@ function App() {
           {currentPage === 'home' && <Home />}
           {currentPage === 'contact' && <Contact />}
           {currentPage === 'privacy' && <Privacy />} 
+          {currentPage === 'about' && <About />}
         </div>
 
         {/* 🟢 3. تمرير دالة تغيير الصفحة لأسفل الموقع */}
