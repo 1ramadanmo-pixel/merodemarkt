@@ -27,27 +27,27 @@ function Navbar({ setPage }) {
   };
 
  const handleWhatsappCheckout = () => {
-  // 🟢 ضع رقم هاتف متجرك الحقيقي هنا بدون أصفار في البداية وبدون علامة +
-  // الرقم يبدأ بـ 32 لدولة بلجيكا (سوق Turnhout)
+  // ضع رقم هاتفك الحقيقي هنا بالكامل (مثال: رقم بلجيكي يبدأ بـ 32)
   const phoneNumber = "32470685016"; 
 
   // صياغة نص الرسالة بالهولندية
-  let message = `🛒 *Nieuwe Bestelling van Merode Markt*\n\n`;
+  let message = "🛒 *Nieuwe Bestelling van Merode Markt*\n\n";
   cart.forEach((item) => {
-    message += `• ${item.name} (x${item.quantity}) - €${(item.price * item.quantity).toFixed(2)}\n`;
+    message += "• " + item.name + " (x" + item.quantity + ") - €" + (item.price * item.quantity).toFixed(2) + "\n";
   });
-  message += `\n💰 *Totaalbedrag:* €${totalPrice.toFixed(2)}\n\n`;
-  message += `Graag wil ik deze bestelling afronden. Alvast bedankt!`;
+  message += "\n💰 *Totaalbedrag:* €" + totalPrice.toFixed(2) + "\n\n";
+  message += "Graag wil ik deze bestelling afronden. Alvast bedankt!";
 
   // ترميز نص الرسالة ليناسب الروابط
   const encodedMessage = encodeURIComponent(message);
   
-  // 🟢 الرابط الصحيح والدقيق (تأكد من وجود الشرطة المائلة وعلامة الدولار للمتغير)
-  const whatsappUrl = `https://wa.me{phoneNumber}?text=${encodedMessage}`;
+  // 🟢 الطريقة التقليدية المضمونة: دمج النصوص باستخدام علامة الزائد (+) وتجنب الأقواس المائلة تماماً
+  const whatsappUrl = "https://wa.me" + phoneNumber + "?text=" + encodedMessage;
   
   // فتح الواتساب في نافذة جديدة
   window.open(whatsappUrl, '_blank');
 };
+
 
 
   return (
