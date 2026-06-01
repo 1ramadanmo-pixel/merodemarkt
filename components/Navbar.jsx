@@ -38,12 +38,13 @@ function Navbar({ setPage }) {
   // ترميز النص ليناسب روابط الإنترنت
   const encodedMessage = encodeURIComponent(message);
   
-  // 🟢 الرابط المباشر الصحيح والمدمج برقمك الفعلي في بلجيكا
-  const whatsappUrl = "https://wa.me" + encodedMessage;
-  
-  // فتح محادثة الواتساب فوراً
-  window.open(whatsappUrl, '_blank');
-};
+
+// 🟢 الرابط الصحيح والمدمج برقم متجرك الفعلي وبادئة الرسالة النصية
+const whatsappUrl = "https://wa.me" + encodedMessage;
+
+// فتح محادثة الواتساب فوراً
+window.open(whatsappUrl, '_blank');
+
 
 
 
