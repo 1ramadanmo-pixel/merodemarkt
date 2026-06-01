@@ -6,7 +6,7 @@ import AdSense from '../components/AdSense';
 // 🛒 مصفوفة البيانات الكاملة لمنتجات متجر Merode Markt
 const dummyProducts = [
   // 1. الخضار والفواكه الطازجة (Groenten & Fruit)
-  { id: 1, name: 'Verse Biologische Bananen (per kilo)', price: 1.79, category: 'Groenten & Fruit', image: '/imge/1.jpg' },
+  { id: 1, name: 'Verse Biologische Bananen (per kilo)', price: 1.79, category: 'Groenten & Fruit', image: 'src/imge/1.jpg' },
   { id: 2, name: 'Verse Aardbeien 500g', price: 3.49, category: 'Groenten & Fruit', image: '/imge/1.jpg' },
   { id: 3, name: 'Tomaat trost (per kilo)', price: 2.29, category: 'Groenten & Fruit', image: '/imge/1.jpg' },
   { id: 4, name: 'Komkommer (per stuk)', price: 0.89, category: 'Groenten & Fruit', image: '/imge/1.jpg' },
