@@ -17,13 +17,13 @@ function Contact() {
 
         <h3>Openingstijden</h3>
         <ul className="hours-list">
-          <li>Maandag - Vrijdag: 08:00 - 20:00</li>
+          <li>Maandag: 08:00 - 20:00</li>
+          <li>Dinsdag: Gesloten</li>
+          <li>Woensdag: 08:00 - 18:00</li>
+          <li>Donderdag: 08:00 - 18:00</li>
+          <li>Vrijdag: 08:00 - 18:00</li>
           <li>Zaterdag: 08:00 - 18:00</li>
-          <li>Zaterdag: 08:00 - 18:00</li>
-          <li>Zaterdag: 08:00 - 18:00</li>
-          <li>Zaterdag: 08:00 - 18:00</li>
-          <li>Zaterdag: 08:00 - 18:00</li>
-          <li>Zondag: Gesloten</li>
+          <li>Zondag: 08:00 - 18:00</li>
         </ul>
       </div>
 
