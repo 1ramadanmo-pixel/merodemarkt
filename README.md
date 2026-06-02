@@ -65,5 +65,5 @@ vercel --prod
 
 ## 📝 Licentie & Ontwikkeling
 Ontwikkeld door: [eu-cod.eu](https://eu-cod.eu)  
-© 2026 Merode Markt. Alle rechten voorbehouden.
+© 2026 Ramadan Mohamed. Alle rechten voorbehouden.
 
